@@ -6,6 +6,13 @@
     android:background="#ffffff"
     tools:context=".MainActivity">
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/u" />
+
     <!-- sp는 설정에서 변경 할 수 있는 부분이 있다. 설정크기-->
     <!--dp는 따로... 설정을 할 수 있다. 문자메세지 크기-->
     <!--텍스트 간격 뛰우기-->
@@ -13,28 +20,64 @@
     <!--단 해당 값을 0으로 줘야 한다. android:layout_height="0dp"-->
     <TextView
         android:id="@+id/text_view_1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#651ebb"
+        android:text="수원스마트"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/text_view_top_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/text_view_1"
+        android:background="#a6ffffff"
+        android:text="왼쪽"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/text_view_top_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_view_1"
+        android:background="#a6ffffff"
+        android:text="오른쪽"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/text_view_2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#0d47a1"
-        android:text="Android Studio1"
+        android:layout_alignParentLeft="true"
+        android:background="#20447c"
+        android:text="Android"
         android:textColor="#ffffff"
         android:textSize="32sp" />
 
     <TextView
-        android:id="@+id/text_view_2"
-
+        android:id="@+id/text_view_bottom_left_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/text_view_2"
+        android:layout_alignParentLeft="true"
+        android:background="#a6ffffff"
+        android:text="위쪽"
+        android:textSize="20sp" />
 
-        android:layout_alignParentRight="true"
-        android:layout_alignParentend="true"
+    <TextView
+        android:id="@+id/text_view_bottom_left_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/text_view_2"
+        android:background="#a6ffffff"
+        android:text="오른쪽"
+        android:textSize="20sp" />
 
-        android:layout_centerVertical="true"
-        android:background="#0d47a1"
-        android:text="Android Studio2"
-        android:textColor="#ffffff"
-        android:textSize="32sp" />
 
     <!--         android:layout_alignParentRight="true"
         android:layout_alignParentend="true"
@@ -45,18 +88,73 @@
     <!--선언할때는 + 가 있고 사용할때는 +가 없다-->
     <TextView
         android:id="@+id/text_view_3"
-        android:layout_above="@id/text_view_1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#0d47a1"
-        android:text="Android Studio3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="#048b1d"
+        android:text="Hello"
         android:textColor="#ffffff"
         android:textSize="32sp" />
 
+    <TextView
+        android:id="@+id/text_view_bottom_right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/text_view_3"
+        android:layout_alignParentRight="true"
+        android:background="#a6ffffff"
+        android:text="위쪽"
+        android:textSize="20sp" />
 
-    <!--<ImageView-->
-    <!--android:src="@drawable/u"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scaleType="centerCrop" />-->
+    <TextView
+        android:id="@+id/text_view_bottom_right_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/text_view_3"
+        android:background="#a6ffffff"
+        android:text="왼쪽"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/naver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:autoLink="web"
+        android:background="#a6ffffff"
+        android:text="http://www.naver.com"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/naver"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:autoLink="phone"
+        android:background="#a6ffffff"
+        android:text="010114"
+        android:textSize="20sp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/naver" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_above="@id/naver"
+        android:layout_toLeftOf="@id/number" />
+
+
 </RelativeLayout>
