@@ -12,6 +12,7 @@
     <!--1:1비율 2주면 3:1 비율이 된다. android:layout_weight="1"-->
     <!--단 해당 값을 0으로 줘야 한다. android:layout_height="0dp"-->
     <TextView
+        android:id="@+id/text_view_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -21,6 +22,8 @@
         android:textSize="32sp" />
 
     <TextView
+        android:id="@+id/text_view_2"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -36,7 +39,13 @@
     <!--         android:layout_alignParentRight="true"
         android:layout_alignParentend="true"
 같이 사용하면 해당 버전에 맞춰서 사용을 할 수 있다. -->
+
+    <!--android:id="@+id/text_view_3"-->
+    <!--android:layout_above="@id/text_view_1"-->
+    <!--선언할때는 + 가 있고 사용할때는 +가 없다-->
     <TextView
+        android:id="@+id/text_view_3"
+        android:layout_above="@id/text_view_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#0d47a1"
