@@ -12,9 +12,12 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@android:color/darker_gray"
+        android:layout_height="wrap_content"
+        android:background="#0d47a1"
+        android:textColor="#ffffff"
         android:text="Android Studio"
+
+
         android:textSize="30sp" />
     <!-- sp는 설정에서 변경 할 수 있는 부분이 있다. 설정크기-->
     <!--dp는 따로... 설정을 할 수 있다. 문자메세지 크기-->
