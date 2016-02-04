@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 추가 사용 하는... 화면에 레이아웃을 표시한다.
         // R(리소스) : 안드로이드(현재프로젝트, 클래스파일을 제외하고...) 자원을 사용한다.
-        setContentView(R.layout.linearchapter01);
+        setContentView(R.layout.relativechapter02);
     }
 }
