@@ -8,15 +8,14 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="1"
         android:scaleType="centerCrop"
         android:src="@drawable/u" />
 
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="#2bba4a"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
@@ -26,8 +25,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="#2bba4a"
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
