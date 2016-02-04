@@ -10,5 +10,9 @@
         android:onClick="onClick"
         android:text="xml onClick 속성 정의" />
     <!-- android:onClick="onClick" 눌렀을때 처리해 주는 메소드-->
-
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="onClickListener 정의" />
 </LinearLayout>
