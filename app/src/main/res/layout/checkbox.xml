@@ -16,4 +16,26 @@
         android:layout_height="wrap_content"
         android:text="체크됨"
         android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이름을 입력하세요."
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/age_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="나이를 입력하세요."
+        android:singleLine="true" />
+
+    <Button
+        android:id="@+id/next_activity_botton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="다음 Activity로 이동" />
+
+
 </LinearLayout>
