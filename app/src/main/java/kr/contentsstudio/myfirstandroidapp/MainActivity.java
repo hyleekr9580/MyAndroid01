@@ -2,6 +2,7 @@ package kr.contentsstudio.myfirstandroidapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -27,13 +28,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Toast.makeText(MainActivity.this, "CHECK" + isChecked, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "CHECK :" + isChecked, Toast.LENGTH_SHORT).show();
 
         //텍스트 뷰의 글자를 변경 할거다.
         if (isChecked) {
-            mTextView.setText("체크됨");
+            mTextView.setVisibility(View.VISIBLE);
         } else {
-            mTextView.setText("");
+            mTextView.setVisibility(View.INVISIBLE);
         }
     }
 }

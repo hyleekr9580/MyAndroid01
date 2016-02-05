@@ -14,5 +14,6 @@
         android:id="@+id/msg_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:text="체크됨"
+        android:visibility="invisible" />
 </LinearLayout>
