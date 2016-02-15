@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final int REQUEST_CODE_PICTURE = 1000;
+    public static final int REQUEST_CODE_CAMERA = 2000;
     private TextView mTextView;
     private EditText mNameEditText;
     private EditText mAgeEditText;
@@ -68,9 +70,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //intent의 정보를 토대로 다른 엑티비티 실행
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_PICTURE);
     }
 
+    // 결과를 처리 하는 부분 입니다.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_PICTURE || resultCode == RESULT_OK || data != null) {
+            //사진을 선택하는 처리
+            String result = data.getStringExtra("result");
+            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+
+        } else if (requestCode == REQUEST_CODE_CAMERA) {
+            //사진을 찍을때의 처리
+        }
+    }
 
     //  메인에서 어플 종료
     public void noTouch() {
@@ -107,6 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        builder.create();
 //        builder.show();
 
-    }
+}
 
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by 호영 on 2016-02-05.
@@ -49,7 +48,12 @@ public class SecoundActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         // 현재 엑티비티 종료 한다. backkey 누른것과 동일하다.
-        Toast.makeText(SecoundActivity.this, "종료합니다.", Toast.LENGTH_SHORT).show();
+        //      Toast.makeText(SecoundActivity.this, "종료합니다.", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent();
+        intent.putExtra("result", mNameTextView.getText().toString() + ", " + mAgeTextView.getText().toString());
+
+        setResult(RESULT_OK, intent);
         finish();
 
 
