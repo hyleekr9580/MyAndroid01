@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+//public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private TextView mTextView;
@@ -58,15 +59,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAgeEditText.getText();
 
 
-        //세컨드 엑티비티로 전환하겠다는 intent
+        //세컨드 엑티비티로 전환하겠다는 인텐트(intent)
         Intent intent = new Intent(this, SecoundActivity.class);
 
         // 이름 나이를 가져와서 intent에 추가
         intent.putExtra("name", mNameEditText.getText().toString());
         intent.putExtra("age", mAgeEditText.getText().toString());
 
+
         //intent의 정보를 토대로 다른 엑티비티 실행
         startActivity(intent);
     }
-}
+
+
+    //  메인에서 어플 종료
+    public void noTouch() {
+    }
+
+
+//    public boolean onKeyDown(int keycode, KeyEvent event) {
+//        if (keycode == KeyEvent.KEYCODE_BACK) {
+//            setAlertMessageToClose();
+//        } else {
+//            noTouch();
+//        }
+//        return true;
+//    }
+
+//    private void setAlertMessageToClose() {
+//        AlertDialog.Builder builder;
+//        Resources res = getResources();
+//        String sText = res.getString(R.string.app_name);
+//
+//        builder = new AlertDialog.Builder(this);
+//        builder.setMessage(sText + "을(를) 종료하시겠습니까?").setCancelable(false)
+//                .setPositiveButton("종료", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.dismiss();
+//                        moveTaskToBack(true);
+//                        android.os.Process.killProcess(android.os.Process.myPid());
+//                    }
+//                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                dialog.cancel();
+//            }
+//        });
+//        builder.create();
+//        builder.show();
+
+    }
+
 

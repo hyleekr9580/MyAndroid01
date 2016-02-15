@@ -36,6 +36,7 @@ public class SecoundActivity extends AppCompatActivity implements View.OnClickLi
             String name = intent.getStringExtra("name");
             String age = intent.getStringExtra("age");
 
+
             mNameTextView.setText(mNameTextView.getText().toString() + name);
             mAgeTextView.setText(mAgeTextView.getText().toString() + age);
 
@@ -50,5 +51,7 @@ public class SecoundActivity extends AppCompatActivity implements View.OnClickLi
         // 현재 엑티비티 종료 한다. backkey 누른것과 동일하다.
         Toast.makeText(SecoundActivity.this, "종료합니다.", Toast.LENGTH_SHORT).show();
         finish();
+
+
     }
 }
