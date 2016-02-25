@@ -14,6 +14,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.contentsstudio.myfirstandroidapp.broadcast.BroadcastActivity;
+import kr.contentsstudio.myfirstandroidapp.com.exercise.Execrise157_S;
+import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise152;
+import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise157;
+import kr.contentsstudio.myfirstandroidapp.com.fab_dialog.FabAndDialogActivity;
+import kr.contentsstudio.myfirstandroidapp.com.listview.ListViewActivity;
+import kr.contentsstudio.myfirstandroidapp.com.webview.WebViewActivity;
+import kr.contentsstudio.myfirstandroidapp.exam163.Exam163Activity;
+import kr.contentsstudio.myfirstandroidapp.exam217.Exam217Activity;
+import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam203Activity;
+import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam212Activity;
+import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExamActivity;
+import kr.contentsstudio.myfirstandroidapp.thread.AsyncTaskActivity;
+import kr.contentsstudio.myfirstandroidapp.thread.ThreadActivity;
+import kr.contentsstudio.myfirstandroidapp.vatcalculator.StartActivity;
+import kr.contentsstudio.myfirstandroidapp.viewpager.ScreenSlideActivity;
+
 /**
  * 예제의 첫 화면
  */
@@ -51,6 +68,24 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "DH 이벤트 01 카톡", MainDhActivity.class);
         addItem(myData, "DH 이벤트 02 텍스트", MainDh2Activity.class);
         addItem(myData, "암시적 인텐트", IntentActivity.class);
+        addItem(myData, "연습문제 152 Page", Exercise152.class);
+        addItem(myData, "연습문제 157 Page", Exercise157.class);
+        addItem(myData, "원장님 커피주문", Execrise157_S.class);
+        addItem(myData, "웹뷰예제", WebViewActivity.class);
+        addItem(myData, "리스트뷰", ListViewActivity.class);
+        addItem(myData, "계산시", StartActivity.class);
+        addItem(myData, "다이얼로그", FabAndDialogActivity.class);
+        addItem(myData, "프래그먼트", FragmentExamActivity.class);
+        addItem(myData, "프래그먼트203", FragmentExam203Activity.class);
+        addItem(myData, "프래그먼트212", FragmentExam212Activity.class);
+        addItem(myData, "ViewPager", ScreenSlideActivity.class);
+        addItem(myData, "Exam217", Exam217Activity.class);
+        addItem(myData, "Therad", ThreadActivity.class);
+        addItem(myData, "AsyncTask", AsyncTaskActivity.class);
+        addItem(myData, "Broadcast", BroadcastActivity.class);
+        addItem(myData, "Exam163", Exam163Activity.class);
+
+
 
         // ----- 메뉴 추가 여기까지
 

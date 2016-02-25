@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kr.contentsstudio.myfirstandroidapp">
+    package="kr.contentsstudio.myfirstandroidapp"
+    android:versionCode="1"
+    android:versionName="1.0">
 
+    <!-- 인터넷 권한을 주었다. -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +18,21 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainListActivity">
             <intent-filter>
+
+                <!-- 메인 -->
+                <action android:name="android.intent.action.MAIN" />
+                <!-- 런처 -->
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.media.action.VIDEO_CAMERA" />
+                <action android:name="android.media.action.STILL_IMAGE_CAMERA" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!-- 카카오링크 -->
+                <data
+                    android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
         <activity android:name=".MainDh2Activity" />
@@ -23,7 +41,59 @@
         <activity android:name=".ScrollActivity" />
         <activity android:name=".SecoundActivity" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".IntentActivity"></activity>
+        <activity android:name=".IntentActivity" />
+        <activity android:name=".com.exercise.Exercise152" />
+        <activity android:name=".com.exercise.ExerciseSecond152" />
+        <activity android:name=".com.exercise.Exercise157" />
+        <activity android:name=".com.exercise.ExerciseSecond157" />
+        <activity android:name=".com.exercise.Execrise157_S" />
+        <activity android:name=".com.webview.WebViewActivity" />
+        <activity android:name=".com.listview.ListViewActivity" />
+        <activity
+            android:name=".vatcalculator.StartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".vatcalculator.CalculatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".vatcalculator.VatCalculatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".com.lifecycle.LifeCycleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+
+            <!-- 생성 중지 시작 을 멈추게 할려면 위와 같이 추가를 해여 한다, -->
+
+        </activity>
+        <activity android:name=".com.fab_dialog.FabAndDialogActivity" />
+        <activity android:name=".fragment.FragmentExamActivity" />
+        <activity android:name=".fragment.FragmentExam203Activity" />
+        <activity android:name=".fragment.FragmentExam212Activity" />
+        <activity android:name=".fragment.exam1.Exam203Activity" />
+        <activity android:name=".viewpager.ScreenSlideActivity" />
+        <activity android:name=".eventbus.EventBusActivity" />
+        <activity android:name=".exam217.Exam217Activity" />
+        <activity android:name=".thread.ThreadActivity" />
+        <activity android:name=".thread.AsyncTaskActivity" />
+        <activity android:name=".broadcast.BroadcastActivity" />
+
+        <receiver
+            android:name=".broadcast.MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <!-- 시스템보다 우선순위를 높인다. -->
+            <intent-filter android:priority="10000">
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+        <!-- 카카오링크 -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
+        <activity android:name=".exam163.Exam163Activity" />
+        <activity android:name=".exam163.Exam163SecondActivity"></activity>
     </application>
 
 </manifest>

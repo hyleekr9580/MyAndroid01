@@ -3,6 +3,7 @@ package kr.contentsstudio.myfirstandroidapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,12 @@ public class IntentActivity extends AppCompatActivity implements View.OnClickLis
     private Button mCallBtn;
     private Button mWebbtn;
     private Button mActionCallBtn;
+    private Button mCameraBtn;
+    private Button mStilBtn;
+    private Button mPicBtn;
+
+
+    public static final int MEDIA_TYPE_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +28,16 @@ public class IntentActivity extends AppCompatActivity implements View.OnClickLis
         mCallBtn = (Button) findViewById(R.id.call_btn);
         mWebbtn = (Button) findViewById(R.id.web_btn);
         mActionCallBtn = (Button) findViewById(R.id.actin_call_btn);
+        mCameraBtn = (Button) findViewById(R.id.camera_btn);
+        mStilBtn = (Button) findViewById(R.id.stil_btn);
+        mPicBtn = (Button) findViewById(R.id.pic_btn);
 
         mCallBtn.setOnClickListener(this);
         mWebbtn.setOnClickListener(this);
         mActionCallBtn.setOnClickListener(this);
+        mCameraBtn.setOnClickListener(this);
+        mStilBtn.setOnClickListener(this);
+        mPicBtn.setOnClickListener(this);
 
         //아래와 같이 두줄로 사용이 가능합니다.
         //findViewById(R.id.call_btn).setOnClickListener(this);
@@ -39,11 +52,23 @@ public class IntentActivity extends AppCompatActivity implements View.OnClickLis
                 // 전화걸기
                 dialPhoneNumber("010-4759-9580");
                 break;
+            // 직접걸기
             case R.id.actin_call_btn:
                 dialPhoneNumberAction("114");
                 break;
+            //웹페이지열기
             case R.id.web_btn:
                 openWebPage("http://www.naver.com");
+                break;
+            //카메라오픈
+            case R.id.camera_btn:
+                capturePhoto();
+                break;
+            case R.id.stil_btn:
+                capturePhotoStil();
+                break;
+            case R.id.pic_btn:
+                pic();
                 break;
         }
 
@@ -81,5 +106,26 @@ public class IntentActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    public void capturePhoto() {
+        Intent intent = new Intent(MediaStore.INTENT_ACTION_VIDEO_CAMERA);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 
+
+    public void capturePhotoStil() {
+        Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    public void pic() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 }

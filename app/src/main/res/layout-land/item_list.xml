@@ -37,7 +37,6 @@
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
 
-
     </LinearLayout>
 
 </LinearLayout>

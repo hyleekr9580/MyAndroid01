@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.checkbox);
 
         // 이름, 나이를 xml에서 거져 와야 한다.
-        mNameEditText = (EditText) findViewById(R.id.name_edit_text);
         mAgeEditText = (EditText) findViewById(R.id.age_edit_text);
+
+        mNameEditText = (EditText) findViewById(R.id.name_edit_text);
 
         // 버튼을 보여줄꺼다~~~
         findViewById(R.id.next_activity_botton).setOnClickListener(this);
