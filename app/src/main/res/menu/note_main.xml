@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <!-- app:showAsAction="never" 숨김기능
+         app:showAsAction="always" 표시되어 있음
+         app:showAsAction="ifRoom" 공산이 있으면 표시-->
+</menu>

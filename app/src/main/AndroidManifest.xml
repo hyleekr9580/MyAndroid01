@@ -10,6 +10,9 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
+    <!-- SD카드 저장퍼미션 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,10 +32,6 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!-- 카카오링크 -->
-                <data
-                    android:host="@string/kakaolink_host"
-                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
         <activity android:name=".MainDh2Activity" />
@@ -93,7 +92,15 @@
             android:value="@string/kakao_app_key" />
 
         <activity android:name=".exam163.Exam163Activity" />
-        <activity android:name=".exam163.Exam163SecondActivity"></activity>
+        <activity android:name=".exam163.Exam163SecondActivity" />
+        <activity android:name=".json_parsing.JsonParsingActivity" />
+        <activity android:name=".exam183.Exam183Activity" />
+        <activity android:name=".exam183.Exam183SecondActivity" />
+        <activity android:name=".examsqlite.SqliteMainActivity" />
+        <activity
+            android:name=".notepad.NoteMainActivity"
+            android:label="@string/title_activity_note_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

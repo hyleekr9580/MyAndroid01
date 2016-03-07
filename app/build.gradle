@@ -29,6 +29,8 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
     compile 'org.greenrobot:eventbus:3.0.0'
+//    json
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
 
 //카카오링크
     compile group: project.KAKAO_SDK_GROUP, name: 'kakaolink', version: project.KAKAO_SDK_VERSION

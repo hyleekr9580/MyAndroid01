@@ -22,10 +22,14 @@ import kr.contentsstudio.myfirstandroidapp.com.fab_dialog.FabAndDialogActivity;
 import kr.contentsstudio.myfirstandroidapp.com.listview.ListViewActivity;
 import kr.contentsstudio.myfirstandroidapp.com.webview.WebViewActivity;
 import kr.contentsstudio.myfirstandroidapp.exam163.Exam163Activity;
+import kr.contentsstudio.myfirstandroidapp.exam183.Exam183Activity;
 import kr.contentsstudio.myfirstandroidapp.exam217.Exam217Activity;
+import kr.contentsstudio.myfirstandroidapp.examsqlite.SqliteMainActivity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam203Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam212Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExamActivity;
+import kr.contentsstudio.myfirstandroidapp.json_parsing.JsonParsingActivity;
+import kr.contentsstudio.myfirstandroidapp.notepad.NoteMainActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.AsyncTaskActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.ThreadActivity;
 import kr.contentsstudio.myfirstandroidapp.vatcalculator.StartActivity;
@@ -84,7 +88,10 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "AsyncTask", AsyncTaskActivity.class);
         addItem(myData, "Broadcast", BroadcastActivity.class);
         addItem(myData, "Exam163", Exam163Activity.class);
-
+        addItem(myData, "json파싱", JsonParsingActivity.class);
+        addItem(myData, "Exam183", Exam183Activity.class);
+        addItem(myData, "SQlite", SqliteMainActivity.class);
+        addItem(myData, "메모장", NoteMainActivity.class);
 
 
         // ----- 메뉴 추가 여기까지

@@ -29,8 +29,12 @@ public class MyAdapter extends BaseAdapter {
 
     }
 
+
+
+
     // 어뎁터가 가지고 있는 아이템의 개수를 지정하는 곳이다.
     @Override
+
     public int getCount() {
         return mData.size();
     }

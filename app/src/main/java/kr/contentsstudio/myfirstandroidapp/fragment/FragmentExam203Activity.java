@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import kr.contentsstudio.myfirstandroidapp.R;
 
-public class FragmentExam203Activity extends AppCompatActivity implements View.OnClickListener, ColorFragment.ColorDataReceiveListener {
+public class    FragmentExam203Activity extends AppCompatActivity implements View.OnClickListener, ColorFragment.ColorDataReceiveListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

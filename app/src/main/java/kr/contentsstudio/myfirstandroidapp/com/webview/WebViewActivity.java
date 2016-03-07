@@ -8,13 +8,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import kr.contentsstudio.myfirstandroidapp.R;
 
 public class WebViewActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText mEditddress;
     private Button mBtnAccess, mLotto;
-    private WebView mWebView;
+    private WebView mWebView, mWebViewLotto;
 
 
     @Override
@@ -23,10 +24,15 @@ public class WebViewActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_web_view);
 
         mEditddress = (EditText) findViewById(R.id.address_edit);
+
         mBtnAccess = (Button) findViewById(R.id.access_btn);
-        mLotto = (Button) findViewById(R.id.lotto_btn);
-        mWebView = (WebView) findViewById(R.id.webview);
         mBtnAccess.setOnClickListener(this);
+
+        mLotto = (Button) findViewById(R.id.lotto_btn);
+        mLotto.setOnClickListener(this);
+
+        mWebView = (WebView) findViewById(R.id.webview);
+
 
         //웹셋팅
         //이것을 설정하지 않으면 다른 웹브라우저가 살행이 됩니다.
@@ -39,8 +45,17 @@ public class WebViewActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        mWebView.loadUrl(mEditddress.getText().toString());
-
+        switch (v.getId()) {
+            case R.id.access_btn:
+                mWebView.loadUrl(mEditddress.getText().toString());
+                if(mEditddress.getText().length() == 0){
+                    Toast.makeText(WebViewActivity.this, "URL을 입력 하세요.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.lotto_btn:
+                mWebView.loadUrl("https://m.search.naver.com/search.naver?query=%EB%A1%9C%EB%98%90%EB%8B%B9%EC%B2%A8%EB%B2%88%ED%98%B8&where=m&sm=mtp_hty");
+                break;
+        }
 
     }
 
