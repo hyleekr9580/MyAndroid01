@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.kakao.kakaolink.KakaoLink;
-import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
-import com.kakao.util.KakaoParameterException;
+
 
 import kr.contentsstudio.myfirstandroidapp.R;
 
@@ -26,9 +24,7 @@ public class BroadcastActivity extends AppCompatActivity implements View.OnClick
     private MyReceiver mMyReceiver;
     private EditText mMessageEditText;
 
-    //    카카오링크
-    private KakaoLink kakaoLink;
-    private KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder;
+
 
 
     @Override
@@ -36,12 +32,7 @@ public class BroadcastActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_broadcast);
 
-        try {
-            kakaoLink = KakaoLink.getKakaoLink(getApplicationContext());
-            kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
-        } catch (KakaoParameterException e) {
-            e.getMessage();
-        }
+
 
         mMessageEditText = (EditText) findViewById(R.id.message);
 
@@ -49,14 +40,7 @@ public class BroadcastActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.kakao_send_button).setOnClickListener(this);
 
 
-//        카카오링크
-        findViewById(R.id.kakao_link_button).setOnClickListener(this);
-        try {
-            kakaoLink = KakaoLink.getKakaoLink(getApplicationContext());
-            kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
-        } catch (KakaoParameterException e) {
-            e.getMessage();
-        }
+
     }
 
     @Override

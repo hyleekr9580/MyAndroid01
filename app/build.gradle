@@ -32,7 +32,6 @@ dependencies {
 //    json
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
 
-//카카오링크
-    compile group: project.KAKAO_SDK_GROUP, name: 'kakaolink', version: project.KAKAO_SDK_VERSION
+
 
 }

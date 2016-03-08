@@ -92,7 +92,7 @@ public class MyAdapter extends BaseAdapter {
         }
 
         //둘중 하나 사용해도 된다.
-        Myitem item = mData.get(position);
+            Myitem item = mData.get(position);
         //Myitem item2 = (Myitem) getItem(position);
 
         //꽂아 줄꺼다~~~~ convertView에서 들고 온다. 텍스트 타이틀

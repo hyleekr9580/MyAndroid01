@@ -100,7 +100,8 @@
         <activity
             android:name=".notepad.NoteMainActivity"
             android:label="@string/title_activity_note_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".notepad.activitys.MemoEditActivity"></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,9 @@
 package kr.contentsstudio.myfirstandroidapp.notepad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import kr.contentsstudio.myfirstandroidapp.R;
+import kr.contentsstudio.myfirstandroidapp.notepad.activitys.MemoEditActivity;
+import kr.contentsstudio.myfirstandroidapp.notepad.fragments.MemoListFragment;
 
 //OnNavigationItemSelectedListener 를 통해서 왼쪽 메뉴를 사용한다.
 public class NoteMainActivity extends AppCompatActivity
@@ -25,7 +27,7 @@ public class NoteMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_note_main);
 
         // 액션바를 툴바를 통해서 대체하고 있습니다.
-        // 툴바 부분 셋팅 하는 부분 입니다.
+        // 툴바 부분 셋팅 하는 부분 입니다. 툴바를 액션바터럼 사용 할 수 있다.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,8 +36,11 @@ public class NoteMainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar 아래에서 올라오는 메세지 토스트 메세지와 비슷하다.
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                //엑티비티를 띄운다.
+                startActivity(new Intent(NoteMainActivity.this, MemoEditActivity.class));
             }
         });
 
@@ -50,6 +55,11 @@ public class NoteMainActivity extends AppCompatActivity
         // 네비게이션 메뉴 리스너
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //        //  기본화면으로 2번째 프래그먼트를 뿌린다.
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contents, new MemoListFragment())
+                .commit();
     }
 
     // onBackPressed 네비를 사용하기 때문에 꼭 필요한 처리 입니다.
@@ -83,7 +93,7 @@ public class NoteMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete) {
             return true;
         }
 
@@ -96,17 +106,11 @@ public class NoteMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_memos) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            //TODO 메모 프레그먼트 표시
+        } else if (id == R.id.nav_setting) {
+            //TODO 설정 프레그먼트 표시
 
         }
 
