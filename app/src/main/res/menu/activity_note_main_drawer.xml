@@ -11,5 +11,10 @@
         android:icon="@drawable/ic_menu_settings"
         android:title="Settings" />
 
+    <item
+        android:id="@+id/nav_spen"
+        android:icon="@drawable/ic_menu_spen"
+        android:title="S pen" />
+
 
 </menu>

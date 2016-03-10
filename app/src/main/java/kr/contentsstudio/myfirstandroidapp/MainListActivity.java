@@ -29,7 +29,7 @@ import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam203Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam212Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExamActivity;
 import kr.contentsstudio.myfirstandroidapp.json_parsing.JsonParsingActivity;
-import kr.contentsstudio.myfirstandroidapp.notepad.NoteMainActivity;
+import kr.contentsstudio.myfirstandroidapp.notepad.activitys.NoteMainActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.AsyncTaskActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.ThreadActivity;
 import kr.contentsstudio.myfirstandroidapp.vatcalculator.StartActivity;

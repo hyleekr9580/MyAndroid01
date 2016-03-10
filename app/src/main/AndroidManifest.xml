@@ -13,7 +13,12 @@
     <!-- SD카드 저장퍼미션 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- 삼성spen -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -98,10 +103,11 @@
         <activity android:name=".exam183.Exam183SecondActivity" />
         <activity android:name=".examsqlite.SqliteMainActivity" />
         <activity
-            android:name=".notepad.NoteMainActivity"
+            android:name=".notepad.activitys.NoteMainActivity"
             android:label="@string/title_activity_note_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".notepad.activitys.MemoEditActivity"></activity>
+        <activity android:name=".notepad.activitys.MemoEditActivity" />
+        <activity android:name=".notepad.spen.HelloPen"></activity>
     </application>
 
 </manifest>
