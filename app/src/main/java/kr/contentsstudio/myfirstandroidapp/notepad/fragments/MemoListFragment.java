@@ -24,9 +24,12 @@ import kr.contentsstudio.myfirstandroidapp.notepad.models.Memo;
  */
 public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
+    private MemoFacade mFacade;
+    private MemoCursorAdapter mAdapter;
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_memo_list, container, false);
     }
 
@@ -46,14 +49,20 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 //        listView.setAdapter(adapter);
         ListView listView = (ListView) view.findViewById(R.id.list);
 
-        MemoFacade facade = new MemoFacade(getActivity());
+        mFacade = new MemoFacade(getActivity());
 
-        MemoCursorAdapter adapter = new MemoCursorAdapter(getActivity(), facade.queryAllMemos());
+        mAdapter = new MemoCursorAdapter(getActivity(), null);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(this);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        // BaseAdapter 에서의 데이터 변경 후 notifyDataSetChanged 와 동일
+        mAdapter.swapCursor(mFacade.queryAllMemos());
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
@@ -61,7 +70,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         Memo memo = Memo.cursorToMemo(cursor);
 
         Intent intent = new Intent(getActivity(), MemoEditActivity.class);
-        intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(0));
+        intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
         intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_TITLE, memo.getTitle());
         intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_MEMO, memo.getMemo());
         startActivity(intent);

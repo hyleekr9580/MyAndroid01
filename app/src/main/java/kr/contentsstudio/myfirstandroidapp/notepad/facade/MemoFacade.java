@@ -73,4 +73,31 @@ public class MemoFacade {
                 null,
                 null);
     }
+
+    public int updateMemo(ContentValues values, String whereClause, String[] whereArgs) {
+        // UPDATE Memo
+        // SET title='title', memo='memo'
+        // WHERE title='test';
+
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+
+        return db.update(MemoContract.MemoEntry.TABLE_NAME,
+                values,
+                whereClause,
+                whereArgs);
+    }
+
+    /**
+     * 메모를 삭제합니다
+     *
+     * @param whereClause where조건
+     * @param whereArgs
+     * @return
+     */
+    public int deleteMemo(String whereClause, String[] whereArgs) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        return db.delete(MemoContract.MemoEntry.TABLE_NAME,
+                whereClause,
+                whereArgs);
+    }
 }

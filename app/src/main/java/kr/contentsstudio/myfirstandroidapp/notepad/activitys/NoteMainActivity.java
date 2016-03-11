@@ -113,7 +113,8 @@ public class NoteMainActivity extends AppCompatActivity
             //TODO 메모 프레그먼트 표시
         } else if (id == R.id.nav_setting) {
             //TODO 설정 프레그먼트 표시
-        } else if (id == R.id.nav_spen) {
+        }
+        else if (id == R.id.nav_spen) {
             Intent intent = new Intent(NoteMainActivity.this, HelloPen.class);
             startActivity(intent);
         }

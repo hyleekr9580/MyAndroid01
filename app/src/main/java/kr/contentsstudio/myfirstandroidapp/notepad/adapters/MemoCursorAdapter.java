@@ -17,11 +17,9 @@ import kr.contentsstudio.myfirstandroidapp.notepad.db.MemoContract;
 public class MemoCursorAdapter extends CursorAdapter {
     private final LayoutInflater mInflator;
 
-
     public MemoCursorAdapter(Context context, Cursor c) {
         super(context, c, false);
         mInflator = LayoutInflater.from(context);
-
     }
 
     @Override
@@ -37,7 +35,6 @@ public class MemoCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-
         ViewHolder holder = (ViewHolder) view.getTag();
 
         String title = cursor.getString(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUM_NAME_TITLE));
