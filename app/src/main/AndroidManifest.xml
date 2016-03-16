@@ -107,7 +107,13 @@
             android:label="@string/title_activity_note_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".notepad.activitys.MemoEditActivity" />
-        <activity android:name=".notepad.spen.HelloPen"></activity>
+        <activity android:name=".notepad.spen.HelloPen" />
+
+        <provider
+            android:name=".notepad.provider.MemoContentProvider"
+            android:authorities="kr.contentsstudio.myfirstandroidapp.Provider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

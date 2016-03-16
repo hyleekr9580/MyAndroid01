@@ -18,7 +18,7 @@ import kr.contentsstudio.myfirstandroidapp.notepad.db.MemoDbHqlper;
 public class MemoFacade {
 
     private MemoDbHqlper mHelper;
-    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public MemoFacade(Context context) {
         mHelper = new MemoDbHqlper(context);
@@ -62,16 +62,20 @@ public class MemoFacade {
      * @return
      */
     public Cursor queryAllMemos() {
+        return queryMemos(null, null, null, null, null, null);
+    }
+    public Cursor queryMemos(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
+
         SQLiteDatabase db = mHelper.getReadableDatabase();
 
         // select * from memo;
         return db.query(MemoContract.MemoEntry.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+                columns,
+                selection,
+                selectionArgs,
+                groupBy,
+                having,
+                orderBy);
     }
 
     public int updateMemo(ContentValues values, String whereClause, String[] whereArgs) {

@@ -21,7 +21,11 @@ public class MemoContract {
                 MemoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MemoEntry.COLUM_NAME_TITLE + " TEXT DEFAULT '제목없음', " +
                 MemoEntry.COLUM_NAME_MEMO + " TEXT, " +
-                MemoEntry.COLUM_NAME_DATE + " TEXT NOT NULL" +
+
+                //MemoEntry.COLUM_NAME_DATE + " TEXT NOT NULL" +
+
+                //날짜 자동생성
+                MemoEntry.COLUM_NAME_DATE + " TEXT DEFAULT CURRENT_DATE" +
                 ");";
     }
 }
