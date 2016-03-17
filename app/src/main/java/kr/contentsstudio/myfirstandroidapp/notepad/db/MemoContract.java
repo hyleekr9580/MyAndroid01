@@ -25,7 +25,9 @@ public class MemoContract {
                 //MemoEntry.COLUM_NAME_DATE + " TEXT NOT NULL" +
 
                 //날짜 자동생성
-                MemoEntry.COLUM_NAME_DATE + " TEXT DEFAULT CURRENT_DATE" +
+                //CURRENT_DATE : 날짜만
+                //CURRENT_TIMESTAMP : 날짜 + 시간
+                MemoEntry.COLUM_NAME_DATE + " TEXT DEFAULT CURRENT_TIMESTAMP" +
                 ");";
     }
 }

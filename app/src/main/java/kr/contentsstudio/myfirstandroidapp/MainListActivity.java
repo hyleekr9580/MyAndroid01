@@ -29,6 +29,7 @@ import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam203Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam212Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExamActivity;
 import kr.contentsstudio.myfirstandroidapp.json_parsing.JsonParsingActivity;
+import kr.contentsstudio.myfirstandroidapp.load_picture.PictureActivity;
 import kr.contentsstudio.myfirstandroidapp.notepad.activitys.NoteMainActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.AsyncTaskActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.ThreadActivity;
@@ -92,6 +93,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "Exam183", Exam183Activity.class);
         addItem(myData, "SQlite", SqliteMainActivity.class);
         addItem(myData, "메모장", NoteMainActivity.class);
+        addItem(myData, "사진보기 - 프로바이더", PictureActivity.class);
 
 
         // ----- 메뉴 추가 여기까지

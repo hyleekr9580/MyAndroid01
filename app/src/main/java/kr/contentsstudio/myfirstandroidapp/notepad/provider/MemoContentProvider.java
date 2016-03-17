@@ -84,12 +84,16 @@ public class MemoContentProvider extends ContentProvider {
                 selectionArgs = null;
                 break;
             case UriMatcher.NO_MATCH:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+                return 0;
         }
         SQLiteDatabase db = mMemoDbHqlper.getWritableDatabase();
-        return db.delete(MemoContract.MemoEntry.TABLE_NAME,
+        int delete = db.delete(MemoContract.MemoEntry.TABLE_NAME,
                 selection,
                 selectionArgs);
+        if (delete > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return delete;
 
 
     }
@@ -124,8 +128,10 @@ public class MemoContentProvider extends ContentProvider {
 
                 if (id > 0) {
                     // contents://kr.contentsstudio.myfirstandroidapp.Provider/Memo#10
-                    //
                     Uri returnUri = ContentUris.withAppendedId(CONTENT_URI, id);
+
+                    // 변경을 통지해 준다.
+                    getContext().getContentResolver().notifyChange(returnUri, null);
                     return returnUri;
                 }
                 break;
@@ -166,13 +172,17 @@ public class MemoContentProvider extends ContentProvider {
         SQLiteDatabase db = mMemoDbHqlper.getReadableDatabase();
 
         // select * from memo;
-        return db.query(MemoContract.MemoEntry.TABLE_NAME,
+        Cursor cursor = db.query(MemoContract.MemoEntry.TABLE_NAME,
                 projection,
                 selection,
                 selectionArgs,
                 null,
                 null,
                 sortOrder);
+        //  커서를 감시대상으로 설정 한다.
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);
+
+        return cursor;
     }
 
     @Override
@@ -193,10 +203,18 @@ public class MemoContentProvider extends ContentProvider {
         }
         SQLiteDatabase db = mMemoDbHqlper.getWritableDatabase();
 
-        return db.update(MemoContract.MemoEntry.TABLE_NAME,
+        int update = db.update(MemoContract.MemoEntry.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);
+        if (update > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return update;
+//        return db.update(MemoContract.MemoEntry.TABLE_NAME,
+//                values,
+//                selection,
+//                selectionArgs);
 
     }
 }

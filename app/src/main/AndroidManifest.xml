@@ -114,6 +114,8 @@
             android:authorities="kr.contentsstudio.myfirstandroidapp.Provider"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".load_picture.PictureActivity"></activity>
     </application>
 
 </manifest>
