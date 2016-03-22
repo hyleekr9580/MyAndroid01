@@ -52,7 +52,7 @@ public class MemoContentProvider extends ContentProvider {
     }
 
 
-    private MemoDbHqlper mMemoDbHqlper;
+    private MemoDbHqlper mMemoDbHelper;
 
 
     //ContentProvider 상속받고 있고 기본생성자 하나가 있다.
@@ -65,7 +65,7 @@ public class MemoContentProvider extends ContentProvider {
         // DbHelper을 생성한다.
         // 파사드와 똑같다. 생성자에서 하는일은 DbHelper을 초기화 하는 일입니다.
         // TODO: Implement this to initialize your content provider on startup.
-        mMemoDbHqlper = new MemoDbHqlper(getContext());
+        mMemoDbHelper = new MemoDbHqlper(getContext());
         return true;
     }
 
@@ -86,7 +86,7 @@ public class MemoContentProvider extends ContentProvider {
             case UriMatcher.NO_MATCH:
                 return 0;
         }
-        SQLiteDatabase db = mMemoDbHqlper.getWritableDatabase();
+        SQLiteDatabase db = mMemoDbHelper.getWritableDatabase();
         int delete = db.delete(MemoContract.MemoEntry.TABLE_NAME,
                 selection,
                 selectionArgs);
@@ -122,14 +122,14 @@ public class MemoContentProvider extends ContentProvider {
         //리턴타입이 uri 타입니다.
         switch (sUriMatcher.match(uri)) {
             case ALL:
-                long id = mMemoDbHqlper.getWritableDatabase().insert(MemoContract.MemoEntry.TABLE_NAME,
+
+                long id = mMemoDbHelper.getWritableDatabase().insert(MemoContract.MemoEntry.TABLE_NAME,
                         null,
                         values);
 
                 if (id > 0) {
                     // contents://kr.contentsstudio.myfirstandroidapp.Provider/Memo#10
                     Uri returnUri = ContentUris.withAppendedId(CONTENT_URI, id);
-
                     // 변경을 통지해 준다.
                     getContext().getContentResolver().notifyChange(returnUri, null);
                     return returnUri;
@@ -169,7 +169,7 @@ public class MemoContentProvider extends ContentProvider {
             case UriMatcher.NO_MATCH:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
-        SQLiteDatabase db = mMemoDbHqlper.getReadableDatabase();
+        SQLiteDatabase db = mMemoDbHelper.getReadableDatabase();
 
         // select * from memo;
         Cursor cursor = db.query(MemoContract.MemoEntry.TABLE_NAME,
@@ -201,7 +201,7 @@ public class MemoContentProvider extends ContentProvider {
             case UriMatcher.NO_MATCH:
                 return 0;
         }
-        SQLiteDatabase db = mMemoDbHqlper.getWritableDatabase();
+        SQLiteDatabase db = mMemoDbHelper.getWritableDatabase();
 
         int update = db.update(MemoContract.MemoEntry.TABLE_NAME,
                 values,

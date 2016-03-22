@@ -30,7 +30,6 @@ import kr.contentsstudio.myfirstandroidapp.R;
 import kr.contentsstudio.myfirstandroidapp.notepad.activitys.MemoEditActivity;
 import kr.contentsstudio.myfirstandroidapp.notepad.adapters.MemoCursorAdapter;
 import kr.contentsstudio.myfirstandroidapp.notepad.db.MemoContract;
-import kr.contentsstudio.myfirstandroidapp.notepad.facade.MemoFacade;
 import kr.contentsstudio.myfirstandroidapp.notepad.models.Memo;
 import kr.contentsstudio.myfirstandroidapp.notepad.provider.MemoContentProvider;
 
@@ -50,7 +49,8 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
     private static final String TAG = MemoListFragment.class.getSimpleName();
     private MemoCursorAdapter mAdapter;
-    private MemoFacade mFacade;
+    //SearchVIew 비동기 처리로 변경
+    //private MemoFacade mFacade;
     private ListView mListView;
     private boolean mMultiChecked;
     //
@@ -59,7 +59,8 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     private ArrayList<Boolean> mIsCheckedList;
     private int mSelectionCount = 0;
 
-    private MemoFacade mMemoFacade;
+    //SearchVIew 비동기 처리로 변경
+    //private MemoFacade mMemoFacade;
 
     @Nullable
     @Override
@@ -80,7 +81,8 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
         setTitle("메모 리스트");
         mListView = (ListView) view.findViewById(R.id.list);
-        mFacade = new MemoFacade(getActivity());
+        //SearchVIew 비동기 처리로 변경
+        //mFacade = new MemoFacade(getActivity());
         mAdapter = new MemoCursorAdapter(getContext(), null) {
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
@@ -105,9 +107,9 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         view.requestFocus();
         view.setOnKeyListener(this);
 
-        mMemoFacade = new MemoFacade(getActivity()
+        //SearchVIew 비동기 처리로 변경
+        //mMemoFacade = new MemoFacade(getActivity()
 
-        );
 
         //initLoader를 하면 로더를 토기화 하는 것이다.
         //  ID : 아무거나 숫자로 준다,\
@@ -168,6 +170,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
             intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_TITLE, memo.getTitle());
             intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_MEMO, memo.getMemo());
+            intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUM_NAME_IMAGE)));
             startActivity(intent);
         } else {
             Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
@@ -231,33 +234,47 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.note_main, menu);
+        inflater.inflate(R.menu.menu_note, menu);
 
 // SearchView
         // https://pluu.github.io/blog/android/2015/05/19/android-toolbar-searchview/
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            android.os.Handler handler = new android.os.Handler();
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(final String newText) {
                 Log.d(TAG, "onQueryTextChange : " + newText);
 
 //                String selection2 = "title LIKE '%"++"%' OR memo LIKE %?%"
-                String selection = "title LIKE '%" + newText + "%' OR memo LIKE '%" + newText + "%'";
 //                String[] selectionArgs = new String[]{
 //                        MemoContract.MemoEntry.COLUM_NAME_TITLE,
 //                        MemoContract.MemoEntry.COLUM_NAME_MEMO
 //                };
-                Cursor cursor = getActivity().getContentResolver().query(MemoContentProvider.CONTENT_URI,
-                        null,
-                        selection,
-                        null,
-                        null);
-                mAdapter.swapCursor(cursor);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String selection = "title LIKE '%" + newText + "%' OR memo LIKE '%" + newText + "%'";
+                        final Cursor cursor = getActivity().getContentResolver().query(MemoContentProvider.CONTENT_URI,
+                                null,
+                                selection,
+                                null,
+                                null);
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.swapCursor(cursor);
+                            }
+                        });
+                    }
+                }).start();
                 return true;
             }
         });
