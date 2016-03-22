@@ -114,7 +114,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         //initLoader를 하면 로더를 토기화 하는 것이다.
         //  ID : 아무거나 숫자로 준다,\
         // Loader " 계산해서 넘길께 없으면 null
-        //  <Cursor> 타입을 변경 할 수 있으나 해당 ㅗ로더를 따로 만들어 줘야 한다.
+        //  <Cursor> 타입을 변경 할 수 있으나 해당 로더를 따로 만들어 줘야 한다.
         // Loader 시작
         // 시작을 하면 onCreateLoader 호출이 된다.
         getLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<Cursor>() {

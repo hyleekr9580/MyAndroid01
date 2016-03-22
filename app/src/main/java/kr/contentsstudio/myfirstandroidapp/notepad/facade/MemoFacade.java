@@ -18,7 +18,7 @@ import kr.contentsstudio.myfirstandroidapp.notepad.db.MemoDbHqlper;
 public class MemoFacade {
 
     private MemoDbHqlper mHelper;
-    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public MemoFacade(Context context) {
         mHelper = new MemoDbHqlper(context);

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="item_attch_image">
+
+        <item>카메라</item>
+        <item>사진찾기</item>
+    </array>
+</resources>

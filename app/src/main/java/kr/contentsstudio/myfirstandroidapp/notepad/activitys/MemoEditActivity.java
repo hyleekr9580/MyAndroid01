@@ -26,8 +26,8 @@ public class MemoEditActivity extends AppCompatActivity {
             if (id != -1) {
                 String title = intent.getStringExtra(MemoContract.MemoEntry.COLUM_NAME_TITLE);
                 String memo = intent.getStringExtra(MemoContract.MemoEntry.COLUM_NAME_MEMO);
-
-                fragment = MemoEditFragment.newInstance(id, title, memo);
+                String image = intent.getStringExtra(MemoContract.MemoEntry.COLUM_NAME_IMAGE);
+                fragment = MemoEditFragment.newInstance(id, title, memo, image);
             } else {
                 fragment = new MemoEditFragment();
             }

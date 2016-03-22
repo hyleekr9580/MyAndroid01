@@ -263,7 +263,7 @@ public class HelloPen extends AppCompatActivity {
     private final View.OnClickListener mBgImgBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(checkPermission()){
+            if (checkPermission()) {
                 return;
             }
             closeSettingView();
@@ -275,7 +275,7 @@ public class HelloPen extends AppCompatActivity {
     private final View.OnClickListener mCaptureBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(checkPermission()){
+            if (checkPermission()) {
                 return;
             }
             closeSettingView();
@@ -474,7 +474,10 @@ public class HelloPen extends AppCompatActivity {
             }
             mSpenNoteDoc = null;
         }
-    };
+    }
+
+    ;
+
     @TargetApi(Build.VERSION_CODES.M)
     public boolean checkPermission() {
         if (SDK_VERSION < 23) {
@@ -482,13 +485,13 @@ public class HelloPen extends AppCompatActivity {
         }
         List<String> permissionList = new ArrayList<String>(Arrays.asList(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE));
-        if(PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+        if (PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             permissionList.remove(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
-        if(PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)){
+        if (PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
             permissionList.remove(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
-        if(permissionList.size()>0) {
+        if (permissionList.size() > 0) {
             requestPermissions(permissionList.toArray(new String[permissionList.size()]), PEMISSION_REQUEST_CODE);
             return true;
         }
@@ -499,10 +502,10 @@ public class HelloPen extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PEMISSION_REQUEST_CODE) {
-            if (grantResults != null ) {
-                for(int i= 0; i< grantResults.length;i++){
-                    if(grantResults[i]!= PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(mContext,"permission: " + permissions[i] + " is denied", Toast.LENGTH_SHORT).show();
+            if (grantResults != null) {
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(mContext, "permission: " + permissions[i] + " is denied", Toast.LENGTH_SHORT).show();
                     }
                 }
 
