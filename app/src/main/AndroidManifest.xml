@@ -10,8 +10,8 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
-    <!-- SD카드 저장퍼미션 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    // sdcard
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- 삼성spen -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
