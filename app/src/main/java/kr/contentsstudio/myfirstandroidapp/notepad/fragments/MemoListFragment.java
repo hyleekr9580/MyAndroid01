@@ -1,8 +1,10 @@
 package kr.contentsstudio.myfirstandroidapp.notepad.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -22,9 +25,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import kr.contentsstudio.myfirstandroidapp.R;
 import kr.contentsstudio.myfirstandroidapp.notepad.activitys.MemoEditActivity;
@@ -56,7 +61,13 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     //
     //private boolean[] mIsCheckedList;
     // 리스트뷰로 변경 해야 한다. 리스트를 늘려줄 수 없기 때문에 Array로 변경을 해야 한다.
-    private ArrayList<Boolean> mIsCheckedList;
+    //private ArrayList<Boolean> mIsCheckedList = new ArrayList<>();
+    //Hashset를 통해서 작업을 해보자~~
+    //set은 자료구조가... 지우는거 있는지 검사하는거..
+    //ArrayList는 index를 얻을 수 있으나 탐색하는거는 set이 빠르다.
+    //set는 구조가 map라 똑같다.
+    private Set<Integer> mIsCheckedList = new HashSet<>();
+
     private int mSelectionCount = 0;
 
     //SearchVIew 비동기 처리로 변경
@@ -87,12 +98,13 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
                 super.bindView(view, context, cursor);
-//                // TODO 검토
-//                if (mIsCheckedList != null && mIsCheckedList[cursor.getPosition()]) {
-//                    view.setBackgroundColor(Color.BLUE);
-//                } else {
-//                    view.setBackgroundColor(Color.WHITE);
-//                }
+                // TODO 검토
+                //contains 있나 없나 검사를 한다.
+                if (mIsCheckedList != null && mIsCheckedList.contains(cursor.getPosition())) {
+                    view.setBackgroundColor(Color.BLUE);
+                } else {
+                    view.setBackgroundColor(Color.WHITE);
+                }
             }
         };
 
@@ -176,20 +188,22 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
             //int Position = cursor.getPosition();
 
-            if (mIsCheckedList.get(position) == true) {
-                mIsCheckedList.set(position, false);
+            //get = contains / set = add
+            if (mIsCheckedList.contains(position)) {
+                mIsCheckedList.remove(position);
                 mSelectionCount--;
             } else {
-                mIsCheckedList.set(position, true);
+                mIsCheckedList.add(position);
                 mSelectionCount++;
             }
             setTitle("" + mSelectionCount);
 
             // 멀티체크 모드 벗어나기
             if (mSelectionCount < 1) {
-                mMultiChecked = false;
-                setTitle("메모 리스트");
-                setHasOptionsMenu(false);
+//                mMultiChecked = false;
+//                setTitle("메모 리스트");
+//                setHasOptionsMenu(false);
+                setmMultiCheckMode(false);
             }
 
             mAdapter.notifyDataSetChanged();
@@ -199,28 +213,28 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
+        setmMultiCheckMode(true);
+ //       Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
         // mIsCheckedList = new boolean[cursor.getCount()];
-        mIsCheckedList = new ArrayList<>();
+        //.clear() 초기화 해주는거~
+//        mIsCheckedList.clear();
         //for문으로 갯수만큼 ArrayList를 늘려준다.
-        for (int i = 0; i < cursor.getCount(); i++) {
-            mIsCheckedList.add(false);
-        }
-
-
-        mMultiChecked = true;
+//        for (int i = 0; i < cursor.getCount(); i++) {
+//            mIsCheckedList.add(false);
+//        }
+//        mMultiChecked = true;
 
         // 현재 롱클릭 한 아이템을 선택 하고 다시 그리기
         // mIsCheckedList[position] = true;
-        mIsCheckedList.set(position, true);
+        mIsCheckedList.add(position);
         mAdapter.notifyDataSetChanged();
         // 선택 된 갯수 초기화
-        mSelectionCount = 1;
+//        mSelectionCount = 1;
         // Title 변경
-        setTitle("" + mSelectionCount);
+//        setTitle("" + mSelectionCount);
 
         // 옵션 메뉴 설정
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         return true;
     }
 
@@ -286,28 +300,85 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
+            showdeleteDialog();
             return true;
+        } else if (id == R.id.action_export) {
+
         }
 
         return super.onOptionsItemSelected(item);
 
     }
 
+    private void showdeleteDialog() {
+        String ids = "";
+        //iterator 반복자 / 반복할 수 있는 것들은 iterator를 사용한다.
+        Iterator<Integer> iterator = mIsCheckedList.iterator();
+        while (iterator.hasNext()) {
+            int position = iterator.next();
+            ids = ids + mAdapter.getItemId(position);
+            if (iterator.hasNext()) {
+                ids += ",";
+            }
+        }
+        Log.d(TAG, ids);
+
+        final String finalIds = ids;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("메모 삭제")
+                .setMessage("메모를 삭제하시겠습니까?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    //익명 클레스
+                    public void onClick(DialogInterface dialog, int which) {
+                        int deleted = getActivity().getContentResolver().delete(MemoContentProvider.CONTENT_URI,
+                                "_id IN (" + finalIds + ")", null);
+                        if (deleted > 0) {
+                            Toast.makeText(getActivity(), "삭제 되었습니다", Toast.LENGTH_SHORT).show();
+//                            mMultiChecked = false;
+
+                            setmMultiCheckMode(false);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .setNegativeButton("아니오", null);
+        builder.show();
+    }
+
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (mMultiChecked) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                mMultiChecked = false;
-                setTitle("메모 리스트");
-                setHasOptionsMenu(false);
+//                mMultiChecked = false;
+//                setTitle("메모 리스트");
+//                setHasOptionsMenu(false);
 
                 // 모두 false로 셋팅
-                Collections.fill(mIsCheckedList, false);
+//                Collections.fill(mIsCheckedList, false);
 
+//                mIsCheckedList.clear();
+                setmMultiCheckMode(false);
                 mAdapter.notifyDataSetChanged();
                 return true;
             }
         }
         return false;
+    }
+
+    private void setmMultiCheckMode(boolean isMultiCheckMode) {
+        mMultiChecked = isMultiCheckMode;
+        setHasOptionsMenu(isMultiCheckMode);
+        mIsCheckedList.clear();
+
+
+        if (isMultiCheckMode) {
+            mSelectionCount = 1;
+            setTitle("" + mSelectionCount);
+        } else {
+            setTitle("메모리스트");
+        }
+
     }
 }
