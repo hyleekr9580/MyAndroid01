@@ -16,7 +16,7 @@ import java.util.Map;
 
 import kr.contentsstudio.myfirstandroidapp.broadcast.BroadcastActivity;
 import kr.contentsstudio.myfirstandroidapp.com.exercise.Execrise157_S;
-import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise152;
+//import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise152;
 import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise157;
 import kr.contentsstudio.myfirstandroidapp.com.fab_dialog.FabAndDialogActivity;
 import kr.contentsstudio.myfirstandroidapp.com.listview.ListViewActivity;
@@ -73,7 +73,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "DH 이벤트 01 카톡", MainDhActivity.class);
         addItem(myData, "DH 이벤트 02 텍스트", MainDh2Activity.class);
         addItem(myData, "암시적 인텐트", IntentActivity.class);
-        addItem(myData, "연습문제 152 Page", Exercise152.class);
+//        addItem(myData, "연습문제 152 Page", Exercise152.class);
         addItem(myData, "연습문제 157 Page", Exercise157.class);
         addItem(myData, "원장님 커피주문", Execrise157_S.class);
         addItem(myData, "웹뷰예제", WebViewActivity.class);

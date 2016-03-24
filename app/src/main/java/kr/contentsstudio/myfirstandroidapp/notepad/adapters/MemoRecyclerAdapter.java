@@ -15,7 +15,7 @@ import kr.contentsstudio.myfirstandroidapp.notepad.db.MemoContract;
  */
 public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapter.Holder> {
 
-    private final Cursor mCursor;
+    private Cursor mCursor;
 
     //생성자를 하나 만들어서 onBindViewHolder 에서 사용 할 수 있는 cursor를 하나 만든다.
     public MemoRecyclerAdapter(Cursor cursor) {
@@ -60,6 +60,13 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
         }
         return mCursor.getCount();
     }
+
+    public void swapCursor(Cursor data) {
+        mCursor = data;
+        notifyDataSetChanged();
+
+    }
+
 
     //static을 사용하는 이유는 내부클래스는 static으로 사용하도록 한다.
     public static class Holder extends RecyclerView.ViewHolder {

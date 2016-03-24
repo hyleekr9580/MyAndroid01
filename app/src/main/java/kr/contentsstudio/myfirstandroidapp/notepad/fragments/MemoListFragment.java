@@ -1,10 +1,8 @@
 package kr.contentsstudio.myfirstandroidapp.notepad.fragments;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -33,7 +32,7 @@ import java.util.Set;
 
 import kr.contentsstudio.myfirstandroidapp.R;
 import kr.contentsstudio.myfirstandroidapp.notepad.activitys.MemoEditActivity;
-import kr.contentsstudio.myfirstandroidapp.notepad.adapters.MemoCursorAdapter;
+import kr.contentsstudio.myfirstandroidapp.notepad.adapters.MemoRecyclerAdapter;
 import kr.contentsstudio.myfirstandroidapp.notepad.db.MemoContract;
 import kr.contentsstudio.myfirstandroidapp.notepad.models.Memo;
 import kr.contentsstudio.myfirstandroidapp.notepad.provider.MemoContentProvider;
@@ -53,7 +52,7 @@ import kr.contentsstudio.myfirstandroidapp.notepad.provider.MemoContentProvider;
 public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnKeyListener {
 
     private static final String TAG = MemoListFragment.class.getSimpleName();
-    private MemoCursorAdapter mAdapter;
+    private MemoRecyclerAdapter mAdapter;
     //SearchVIew 비동기 처리로 변경
     //private MemoFacade mFacade;
     private RecyclerView mListView;
@@ -94,21 +93,30 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         mListView = (RecyclerView) view.findViewById(R.id.list);
         //SearchVIew 비동기 처리로 변경
         //mFacade = new MemoFacade(getActivity());
-        mAdapter = new MemoCursorAdapter(getContext(), null) {
-            @Override
-            public void bindView(View view, Context context, Cursor cursor) {
-                super.bindView(view, context, cursor);
-                // TODO 검토
-                //contains 있나 없나 검사를 한다.
-                if (mIsCheckedList != null && mIsCheckedList.contains(cursor.getPosition())) {
-                    view.setBackgroundColor(Color.BLUE);
-                } else {
-                    view.setBackgroundColor(Color.WHITE);
-                }
-            }
-        };
 
-//        mListView.setAdapter(mAdapter);
+        //RecyclerAdapter를 사용하면....주석...
+//        mAdapter = new MemoCursorAdapter(getContext(), null) {
+//            @Override
+//            public void bindView(View view, Context context, Cursor cursor) {
+//                super.bindView(view, context, cursor);
+//                // TODO 검토
+//                //contains 있나 없나 검사를 한다.
+//                if (mIsCheckedList != null && mIsCheckedList.contains(cursor.getPosition())) {
+//                    view.setBackgroundColor(Color.BLUE);
+//                } else {
+//                    view.setBackgroundColor(Color.WHITE);
+//                }
+//            }
+//        };
+
+        mAdapter = new MemoRecyclerAdapter(null);
+        mListView.setAdapter(mAdapter);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mListView.setLayoutManager(layoutManager);
+
+        //레이아웃매니저
+
+        //TODO 리스너구현
 //        mListView.setOnItemClickListener(this);
 //        mListView.setOnItemLongClickListener(this);
 
@@ -214,7 +222,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         setmMultiCheckMode(true);
- //       Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
+        //       Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
         // mIsCheckedList = new boolean[cursor.getCount()];
         //.clear() 초기화 해주는거~
 //        mIsCheckedList.clear();
