@@ -15,16 +15,16 @@ import kr.contentsstudio.myfirstandroidapp.notepad.db.MemoContract;
  * Created by hoyoung on 2016-03-10.
  */
 public class MemoCursorAdapter extends CursorAdapter {
-    private final LayoutInflater mInflator;
+//    private final LayoutInflater mInflator;
 
     public MemoCursorAdapter(Context context, Cursor c) {
         super(context, c, false);
-        mInflator = LayoutInflater.from(context);
+//        mInflator = LayoutInflater.from(context);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View convertView = mInflator.inflate(R.layout.item_memo, parent, false);
+        View convertView = LayoutInflater.from(context).inflate(R.layout.item_memo, parent, false);
         ViewHolder holder = new ViewHolder();
         holder.title = (TextView) convertView.findViewById(R.id.title_text);
         holder.memo = (TextView) convertView.findViewById(R.id.memo_text);
