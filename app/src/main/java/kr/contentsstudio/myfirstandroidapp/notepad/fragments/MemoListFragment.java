@@ -14,6 +14,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.HashSet;
@@ -56,7 +56,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
     private MemoCursorAdapter mAdapter;
     //SearchVIew 비동기 처리로 변경
     //private MemoFacade mFacade;
-    private ListView mListView;
+    private RecyclerView mListView;
     private boolean mMultiChecked;
     //
     //private boolean[] mIsCheckedList;
@@ -91,7 +91,7 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 //        listView.setAdapter(adapter);
 
         setTitle("메모 리스트");
-        mListView = (ListView) view.findViewById(R.id.list);
+        mListView = (RecyclerView) view.findViewById(R.id.list);
         //SearchVIew 비동기 처리로 변경
         //mFacade = new MemoFacade(getActivity());
         mAdapter = new MemoCursorAdapter(getContext(), null) {
@@ -108,9 +108,9 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             }
         };
 
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(this);
-        mListView.setOnItemLongClickListener(this);
+//        mListView.setAdapter(mAdapter);
+//        mListView.setOnItemClickListener(this);
+//        mListView.setOnItemLongClickListener(this);
 
 
         // fragment에서의 back key 처리
