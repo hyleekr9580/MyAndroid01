@@ -28,7 +28,7 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
         //Context를 받아 올 수 있다.
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_memo, parent, false);
 
-        //holder을 만들어서 리컨
+        //holder을 만들어서 리턴
         return new Holder(itemView);
 //        Holder holder = new Holder(itemView);
 //        return holder;

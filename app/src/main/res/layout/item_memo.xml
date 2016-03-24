@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    cardview:cardBackgroundColor="#c7c7c7"
+    cardview:cardCornerRadius="5dp"
+    cardview:cardElevation="5dp">
 
 
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="99990101"
-        android:textAppearance="?attr/textAppearanceListItem" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/title_text"
+        <!--cardview-->
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99990101"
+            android:textAppearance="?attr/textAppearanceListItem" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="aaaaaaa"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="aaaaaaa"
+            android:textAppearance="?attr/textAppearanceListItem" />
 
-    <TextView
-        android:id="@+id/memo_text"
+        <TextView
+            android:id="@+id/memo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="vvvvvvvv"
+            android:textAppearance="?attr/textAppearanceListItem" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="vvvvvvvv"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-</LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
