@@ -62,7 +62,7 @@ public class PictureNetworkActivity extends AppCompatActivity implements LoaderM
             recyclerView.setLayoutManager(layoutManager);
         } else {
             // 두번째
-            GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+            GridLayoutManager layoutManager = new GridLayoutManager(this,2);
             recyclerView.setLayoutManager(layoutManager);
         }
 
@@ -190,7 +190,6 @@ return null;
                 public Bitmap getBitmap(String key) {
                     // Background Thread
 
-                    // 이부분에서 네트워크를 걸고 다운로드 할 수 있도록 하게하고 리턴한다. 
 
 
                     BitmapFactory.Options options = new BitmapFactory.Options();
