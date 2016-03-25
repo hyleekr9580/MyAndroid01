@@ -3,6 +3,7 @@ package kr.contentsstudio.myfirstandroidapp.notepad.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -49,7 +52,7 @@ import kr.contentsstudio.myfirstandroidapp.notepad.provider.MemoContentProvider;
   * 데이터 100만건등... 많은 데이터가 있을 경우 로더를 이용해서 사용하면 빠르게 처리 할 수 있다.
   * 로더가 리셋되었을때는 값을 비워주면 된다.
  */
-public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnKeyListener {
+public class MemoListFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnKeyListener, MemoRecyclerAdapter.OnItemClickListener {
 
     private static final String TAG = MemoListFragment.class.getSimpleName();
     private MemoRecyclerAdapter mAdapter;
@@ -109,7 +112,14 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 //            }
 //        };
 
-        mAdapter = new MemoRecyclerAdapter(null);
+        mAdapter = new MemoRecyclerAdapter(null) {
+            @Override
+            public void onBindViewHolder(Holder holder, int position) {
+                super.onBindViewHolder(holder, position);
+
+                changeColor(holder.itemView, position);
+            }
+        };
         mListView.setAdapter(mAdapter);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mListView.setLayoutManager(layoutManager);
@@ -117,9 +127,18 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
         //레이아웃매니저
 
         //TODO 리스너구현
+        //CardView를 사용할 경우 setOnItemClickListener가 없다. 만들어서 사용을 해야 한다.
+        //MemoRecyclerAdapter를 통해서 만들 수 있다.
+        mAdapter.setOnItemClickListener(this);
 //        mListView.setOnItemClickListener(this);
 //        mListView.setOnItemLongClickListener(this);
 
+
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(500);
+        animator.setRemoveDuration(500);
+
+        mListView.setItemAnimator(animator);
 
         // fragment에서의 back key 처리
         // http://stackoverflow.com/questions/7992216/android-fragment-handle-back-button-press
@@ -183,68 +202,36 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mMultiChecked == false) {
-            Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
-            Memo memo = Memo.cursorToMemo(cursor);
-            Intent intent = new Intent(getActivity(), MemoEditActivity.class);
-            intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
-            intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_TITLE, memo.getTitle());
-            intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_MEMO, memo.getMemo());
-            intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUM_NAME_IMAGE)));
-            startActivity(intent);
-        } else {
-            Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
-            //int Position = cursor.getPosition();
 
-            //get = contains / set = add
-            if (mIsCheckedList.contains(position)) {
-                mIsCheckedList.remove(position);
-                mSelectionCount--;
-            } else {
-                mIsCheckedList.add(position);
-                mSelectionCount++;
-            }
-            setTitle("" + mSelectionCount);
-
-            // 멀티체크 모드 벗어나기
-            if (mSelectionCount < 1) {
-//                mMultiChecked = false;
-//                setTitle("메모 리스트");
-//                setHasOptionsMenu(false);
-                setmMultiCheckMode(false);
-            }
-
-            mAdapter.notifyDataSetChanged();
-        }
     }
 
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        setmMultiCheckMode(true);
-        //       Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
-        // mIsCheckedList = new boolean[cursor.getCount()];
-        //.clear() 초기화 해주는거~
+//    @Override
+//    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//        setmMultiCheckMode(true);
+    //       Cursor cursor = (Cursor) (parent.getAdapter()).getItem(position);
+    // mIsCheckedList = new boolean[cursor.getCount()];
+    //.clear() 초기화 해주는거~
 //        mIsCheckedList.clear();
-        //for문으로 갯수만큼 ArrayList를 늘려준다.
+    //for문으로 갯수만큼 ArrayList를 늘려준다.
 //        for (int i = 0; i < cursor.getCount(); i++) {
 //            mIsCheckedList.add(false);
 //        }
 //        mMultiChecked = true;
 
-        // 현재 롱클릭 한 아이템을 선택 하고 다시 그리기
-        // mIsCheckedList[position] = true;
-        mIsCheckedList.add(position);
-        mAdapter.notifyDataSetChanged();
-        // 선택 된 갯수 초기화
+    // 현재 롱클릭 한 아이템을 선택 하고 다시 그리기
+    // mIsCheckedList[position] = true;
+//        mIsCheckedList.add(position);
+//        mAdapter.notifyDataSetChanged();
+    // 선택 된 갯수 초기화
 //        mSelectionCount = 1;
-        // Title 변경
+    // Title 변경
 //        setTitle("" + mSelectionCount);
 
-        // 옵션 메뉴 설정
+    // 옵션 메뉴 설정
 //        setHasOptionsMenu(true);
-        return true;
-    }
+//        return true;
+//    }
 
 
     private void setTitle(String title) {
@@ -388,5 +375,75 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
             setTitle("메모리스트");
         }
 
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+        Toast.makeText(getActivity(), "position : " + position, Toast.LENGTH_SHORT).show();
+        if (mMultiChecked == false) {
+            Cursor cursor = mAdapter.getItem(position);
+            Memo memo = Memo.cursorToMemo(cursor);
+            Intent intent = new Intent(getActivity(), MemoEditActivity.class);
+            intent.putExtra(MemoContract.MemoEntry._ID, cursor.getLong(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry._ID)));
+            intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_TITLE, memo.getTitle());
+            intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_MEMO, memo.getMemo());
+            intent.putExtra(MemoContract.MemoEntry.COLUM_NAME_IMAGE, cursor.getString(cursor.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUM_NAME_IMAGE)));
+            startActivity(intent);
+        } else {
+
+//                    Cursor cursor = (Cursor) (mAdapter.getItem(position);
+            //int Position = cursor.getPosition();
+
+            //get = contains / set = add
+
+            //  색상변경상태
+            if (mIsCheckedList.contains(position)) {
+                mIsCheckedList.remove(position);
+                mSelectionCount--;
+            } else {
+                mIsCheckedList.add(position);
+                mSelectionCount++;
+            }
+            setTitle("" + mSelectionCount);
+
+            //  색사값설정
+//            changeColor(view, position);
+
+            // 멀티체크 모드 벗어나기
+            if (mSelectionCount < 1) {
+//                mMultiChecked = false;
+//                setTitle("메모 리스트");
+//                setHasOptionsMenu(false);
+                setmMultiCheckMode(false);
+            }
+
+            // 변경 적용
+            mAdapter.notifyItemChanged(position);
+        }
+    }
+
+    private void changeColor(View view, int position) {
+        if (mIsCheckedList != null && mIsCheckedList.contains(position)) {
+            if (view instanceof CardView) {
+                ((CardView) view).setCardBackgroundColor(Color.BLUE);
+            }
+        } else {
+            if (view instanceof CardView) {
+                ((CardView) view).setCardBackgroundColor(Color.WHITE);
+            }
+        }
+    }
+
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+        setmMultiCheckMode(true);
+
+        mIsCheckedList.add(position);
+
+//        changeColor(view, position);
+
+        mAdapter.notifyDataSetChanged();
     }
 }
