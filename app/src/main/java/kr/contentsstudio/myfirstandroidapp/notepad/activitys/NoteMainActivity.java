@@ -1,7 +1,9 @@
 package kr.contentsstudio.myfirstandroidapp.notepad.activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import kr.contentsstudio.myfirstandroidapp.R;
 import kr.contentsstudio.myfirstandroidapp.notepad.fragments.MemoListFragment;
@@ -110,8 +113,25 @@ public class NoteMainActivity extends AppCompatActivity
         if (id == R.id.nav_memos) {
             // Handle the camera action
             //TODO 메모 프레그먼트 표시
+//읽는 부분
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String str = sharedPreferences.getString("example_text", "없습니다.");
+            Toast.makeText(NoteMainActivity.this, "Str : " + str, Toast.LENGTH_SHORT).show();
+
+
+            //  쓰는 부분
+            //  commit()을 사용하면 스레드를 사용하는거고
+            //  apply()는 비동기화
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString("example_text", "왜 안되는거야");
+//           editor.apply();
+
+
         } else if (id == R.id.nav_setting) {
             //TODO 설정 프레그먼트 표시
+            Intent intent = new Intent(NoteMainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_spen) {
             Intent intent = new Intent(NoteMainActivity.this, HelloPen.class);
             startActivity(intent);

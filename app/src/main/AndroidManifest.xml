@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature android:name="android.hardware.camera" />
-
     // sdcard
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -92,7 +91,6 @@
             </intent-filter>
         </receiver>
 
-
         <activity android:name=".exam163.Exam163Activity" />
         <activity android:name=".exam163.Exam163SecondActivity" />
         <activity android:name=".json_parsing.JsonParsingActivity" />
@@ -104,16 +102,17 @@
             android:label="@string/title_activity_note_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".notepad.activitys.MemoEditActivity">
+
             <!-- http://developer.android.com/intl/ko/training/basics/intents/filters.html#AddIntentFilter -->
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".notepad.spen.HelloPen" />
 
         <provider
@@ -122,7 +121,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".load_picture.PictureActivity"></activity>
+        <activity android:name=".load_picture.PictureActivity" />
+        <activity
+            android:name=".notepad.activitys.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
