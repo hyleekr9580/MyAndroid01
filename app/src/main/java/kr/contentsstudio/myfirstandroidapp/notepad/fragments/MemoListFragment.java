@@ -134,9 +134,15 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 //        mListView.setOnItemLongClickListener(this);
 
 
+        //애니메이션 구현하기
+        //RecyclerView를 사용하는 이유는 애니메이션을 구현하기 위해서 사용을 한다.
+        //  기본애니메이션
         DefaultItemAnimator animator = new DefaultItemAnimator();
-        animator.setAddDuration(500);
-        animator.setRemoveDuration(500);
+        // 애니메이션 수정
+        animator.setAddDuration(1000);
+        animator.setRemoveDuration(1000);
+        animator.setChangeDuration(1000);
+        animator.setMoveDuration(1000);
 
         mListView.setItemAnimator(animator);
 
@@ -334,9 +340,10 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 //                            mMultiChecked = false;
 
                             setmMultiCheckMode(false);
-                            mAdapter.notifyDataSetChanged();
+                            //mAdapter.notifyDataSetChanged();
                         }
                     }
+
                 })
                 .setNegativeButton("아니오", null);
         builder.show();
@@ -369,7 +376,11 @@ public class MemoListFragment extends Fragment implements AdapterView.OnItemClic
 
 
         if (isMultiCheckMode) {
+            // 선택 된 갯수 초기화
+
             mSelectionCount = 1;
+            // Title 변경
+
             setTitle("" + mSelectionCount);
         } else {
             setTitle("메모리스트");

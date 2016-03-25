@@ -1,8 +1,10 @@
 package kr.contentsstudio.myfirstandroidapp.notepad.adapters;
 
 import android.database.Cursor;
+import android.database.CursorJoiner;
 import android.provider.BaseColumns;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
     private OnItemClickListener mListener;
 
     public Cursor getItem(int position) {
-        Cursor cursor  = mCursor;
+        Cursor cursor = mCursor;
         cursor.moveToPosition(position);
         return cursor;
     }
@@ -27,6 +29,7 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
     //클릭했을때 position 필요하다.
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
+
         void onItemLongClick(View view, int position);
     }
 
@@ -55,7 +58,7 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemClick(itemView,holder.getAdapterPosition());
+                    mListener.onItemClick(itemView, holder.getAdapterPosition());
                 }
             }
         });
@@ -63,7 +66,7 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
             @Override
             public boolean onLongClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemLongClick(itemView,holder.getAdapterPosition());
+                    mListener.onItemLongClick(itemView, holder.getAdapterPosition());
                 }
                 return true;
             }
@@ -113,27 +116,52 @@ public class MemoRecyclerAdapter extends RecyclerView.Adapter<MemoRecyclerAdapte
 
 
     public void swapCursor(Cursor data) {
+        Cursor oldCursor = mCursor;
+        if (oldCursor != null && data != null && !oldCursor.isClosed() && !data.isClosed()) {
+            String[] columns = {BaseColumns._ID};
+            CursorJoiner joiner = new CursorJoiner(oldCursor, columns, data, columns);
+            for (CursorJoiner.Result result : joiner) {
+                switch (result) {
+                    case LEFT:
+                        notifyItemRemoved(data.getPosition());
+                        Log.d("swapCursor", "LEFT");
+                        break;
+                    case RIGHT:
+                        notifyItemInserted(data.getPosition());
+                        Log.d("swapCursor", "RIGHT");
+                        break;
+                    case BOTH:
+                        if (oldCursor.hashCode() != data.hashCode()) {
+                            notifyItemChanged(data.getPosition());
+                            Log.d("swapCursor", "BOTH");
+                        }
+                        break;
+                }
+            }
+            oldCursor.close();
+        }
+
         mCursor = data;
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
 
     }
 
 
-//static을 사용하는 이유는 내부클래스는 static으로 사용하도록 한다.
-public static class Holder extends RecyclerView.ViewHolder {
-    TextView title;
-    TextView memo;
-    TextView date;
+    //static을 사용하는 이유는 내부클래스는 static으로 사용하도록 한다.
+    public static class Holder extends RecyclerView.ViewHolder {
+        TextView title;
+        TextView memo;
+        TextView date;
 
 
-    //생성자에서 셋팅을 해준다.
-    public Holder(View itemView) {
-        super(itemView);
+        //생성자에서 셋팅을 해준다.
+        public Holder(View itemView) {
+            super(itemView);
 
-        // 한칸에 대한 레이아웃
-        title = (TextView) itemView.findViewById(R.id.title_text);
-        memo = (TextView) itemView.findViewById(R.id.memo_text);
-        date = (TextView) itemView.findViewById(R.id.date_text);
+            // 한칸에 대한 레이아웃
+            title = (TextView) itemView.findViewById(R.id.title_text);
+            memo = (TextView) itemView.findViewById(R.id.memo_text);
+            date = (TextView) itemView.findViewById(R.id.date_text);
+        }
     }
-}
 }
