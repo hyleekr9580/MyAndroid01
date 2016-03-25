@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.WorkerThread;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,10 +25,18 @@ import android.widget.ListView;
 
 import com.suwonsmartapp.abl.AsyncBitmapLoader;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import kr.contentsstudio.myfirstandroidapp.R;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
-public class PictureActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PictureNetworkActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private PictureCursorAdapter mAdapter;
     private PictureRecyclerViewAdapter mRecyclerAdapter;
@@ -45,7 +54,7 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
         mRecyclerAdapter = new PictureRecyclerViewAdapter(this, null);
         recyclerView.setAdapter(mRecyclerAdapter);
 
-        // 화면의 방향을 알 수 있는 방법
+// 화면의 방향을 알 수 있는 방법
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             // 첫번째
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -65,7 +74,7 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(PictureActivity.this,
+        return new CursorLoader(PictureNetworkActivity.this,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null,
                 null,
@@ -95,13 +104,37 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
             mAsyncBitmapLoader = new AsyncBitmapLoader(context);
             mAsyncBitmapLoader.setBitmapLoadListener(new AsyncBitmapLoader.BitmapLoadListener() {
                 @Override
+                //  @WorkerThread 을 달아 놓으면 백그라운드에서 동작하고 있다는 것을 지정한다.
+                //  백그라운드가돌지 않으면 어플이 뻗는다.
+                @WorkerThread
                 public Bitmap getBitmap(String key) {
                     // Background Thread
 
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = 4;   // 2의 배수, 큰 값일 수록 이미지 크기가 작아짐
+                    //네트워크에서 이미지 받아오는 처리
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url("http://uccunse.com/appliction/samplejoa/maintool/sale_1603.jpg")
+                            .build();
+                    Response response = null;
+                    try {
+                        response = client.newCall(request).execute();
+                        InputStream in = response.body().byteStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                    return BitmapFactory.decodeFile(key, options);
+
+                        return BitmapFactory.decodeStream(in);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+//                        Toast.makeText(context, "에러발생", Toast.LENGTH_SHORT).show();
+                    } finally {
+
+                        response.body().close();
+                    }
+
+return null;
+//                    BitmapFactory.Options options = new BitmapFactory.Options();
+//                    options.inSampleSize = 4;   // 2의 배수, 큰 값일 수록 이미지 크기가 작아짐
+//
+//                    return BitmapFactory.decodeFile(key, options);
                 }
             });
         }
@@ -157,7 +190,7 @@ public class PictureActivity extends AppCompatActivity implements LoaderManager.
                 public Bitmap getBitmap(String key) {
                     // Background Thread
 
-                    // 이부분에서 네트워크를 걸고 다운로드 할 수 있도록 하게하고 리턴한다.
+                    // 이부분에서 네트워크를 걸고 다운로드 할 수 있도록 하게하고 리턴한다. 
 
 
                     BitmapFactory.Options options = new BitmapFactory.Options();
