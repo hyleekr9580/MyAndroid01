@@ -3,7 +3,7 @@ package kr.contentsstudio.myfirstandroidapp.chat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jsoh.myfirstandroidapp.R;
+import kr.contentsstudio.myfirstandroidapp.R;
 
 public class ChatActivity extends AppCompatActivity {
 

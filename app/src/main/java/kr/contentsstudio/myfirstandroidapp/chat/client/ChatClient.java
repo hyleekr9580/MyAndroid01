@@ -21,6 +21,7 @@ public class ChatClient {
     private Socket mSocket;
     private String mName;
 
+    //서버쪽으로 쏘는 아이~~~
     private DataOutputStream mOutputStream;
 
     public void connect() {
@@ -37,6 +38,7 @@ public class ChatClient {
         }
     }
 
+    //외부에서 메세지를 던지면 쏘기만 하면된다.
     public void sendMessage(String msg) {
         long time = System.currentTimeMillis();
         MsgInfo msgInfo = new MsgInfo(mName, msg, time);
@@ -101,6 +103,7 @@ public class ChatClient {
             try {
                 mName = nickName;
                 mOutputStream = new DataOutputStream(mSocket.getOutputStream());
+                //채팅을 발송하는 thread 이다.
                 mOutputStream.writeUTF(nickName);
                 mOutputStream.flush();
                 System.out.println("id : " + nickName + "접속 완료");

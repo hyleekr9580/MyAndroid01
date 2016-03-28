@@ -14,12 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.jsoh.myfirstandroidapp.R;
-import com.jsoh.myfirstandroidapp.chat.client.ChatClient;
-import com.jsoh.myfirstandroidapp.chat.client.MsgInfo;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import kr.contentsstudio.myfirstandroidapp.R;
+import kr.contentsstudio.myfirstandroidapp.chat.client.ChatClient;
+import kr.contentsstudio.myfirstandroidapp.chat.client.MsgInfo;
 
 public class ChatFragment extends Fragment implements View.OnClickListener {
     private EditText mMessageEdit;
@@ -55,8 +55,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        //버튼을 클랙했을때 어떻게 해야하냐~~
         mChatClient.sendMessage(mMessageEdit.getText().toString());
         mMessageEdit.setText("");
+
+
+
+
     }
 
     @Override
@@ -88,13 +93,26 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                // <TextView />
+
+//        <!--<TextView-->
+//        <!--android:layout_gravity="right"-->
+//        <!--android:id="@+id/msg_list_text"-->
+//        <!--android:text="안녕하세요"-->
+//        <!--android:layout_width="wrap_content"-->
+//        <!--android:layout_height="wrap_content"-->
+//        <!--android:background="@drawable/bubble"-->
+//        <!--/>-->
+
+
+                //프래그먼트 이기 때문에 Context는 getActivity이다.
+                //        <!--<TextView-->
                 TextView textView = new TextView(getActivity());
-                //  android:layout_width="wrap_content"
-                //  android:layout_height="wrap_content"
+
+                //  XML에서 LinearLayout에서 만들었기 때문에 LinearLayout.LayoutParams으로 선택
+                //        <!--android:layout_width="wrap_content"-->
+                //        <!--android:layout_height="wrap_content"-->
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                //  android:layout_gravity="right"
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
 
                 if (msgInfo.getNickName().equals("오준석")) {
                     params.gravity = Gravity.RIGHT;
@@ -102,8 +120,16 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                     params.gravity = Gravity.LEFT;
                 }
                 textView.setLayoutParams(params);
+
+                //        <!--android:layout_gravity="right"-->
+                //  레이아웃이 들어가 있으면 모두 params에 들어 있다고 생각하면 된다
+                params.gravity = Gravity.RIGHT;
+                //        <!--android:background="@drawable/bubble"-->
+                textView.setBackgroundResource(R.drawable.box);
+
+
                 //  android:background="@drawable/bubble"
-                textView.setBackgroundResource(R.drawable.bubble);
+                textView.setBackgroundResource(R.drawable.box);
                 textView.setText(msgInfo.getNickName() + ": " + msgInfo.getMessage());
 
                 mLinearLayout.addView(textView);

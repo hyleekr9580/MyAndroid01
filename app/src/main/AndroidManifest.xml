@@ -45,7 +45,7 @@
         <activity android:name=".SecoundActivity" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".IntentActivity" />
-        <activity android:name=".com.exercise.Exercise152" />
+        <!--<activity android:name=".com.exercise.Exercise152" />-->
         <activity android:name=".com.exercise.ExerciseSecond152" />
         <activity android:name=".com.exercise.Exercise157" />
         <activity android:name=".com.exercise.ExerciseSecond157" />
@@ -126,6 +126,8 @@
             android:name=".notepad.activitys.SettingsActivity"
             android:label="@string/title_activity_settings"/>
         <activity android:name=".load_picture.PictureNetworkActivity"/>
+        <activity android:name=".chat.ChatActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
 </manifest>
