@@ -1,5 +1,6 @@
 package kr.contentsstudio.myfirstandroidapp.chat;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -9,7 +10,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import kr.contentsstudio.myfirstandroidapp.R;
 import kr.contentsstudio.myfirstandroidapp.chat.client.ChatClient;
@@ -88,8 +92,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
     Handler mHandler = new Handler();
 
-    //타임을 만들기 위한 포맷
-    private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("a hh:dd");
 
     @Subscribe
     @WorkerThread
@@ -119,13 +121,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                if (msgInfo.getNickName().equals("이호영")) {
+                if (msgInfo.getNickName().equals(ChatClient.NICKNAME)) {
 
                     //프레그먼트에서 레이아웃을 가지고 올려면 inflater을 가지고 와야 한다.
                     View itemView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat_me, mLinearLayout, false);
                     TextView timeText = (TextView) itemView.findViewById(R.id.time_text);
-                    TextView messageText = (TextView) itemView.findViewById(R.id.msg_text);
-                    timeText.setText(mSimpleDateFormat.format(new Date()));
+                    TextView messageText = (TextView) itemView.findViewById(R.id.message_me);
+//                    timeText.setText(mSimpleDateFormat.format(new Date()));
                     messageText.setText(msgInfo.getMessage());
                     mLinearLayout.addView(itemView);
 //                    params.gravity = Gravity.RIGHT;
@@ -150,4 +152,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
+
+
 }
