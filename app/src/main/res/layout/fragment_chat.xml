@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- 리스트뷰 사용시 스크롤-->
+    <!-- android:transcriptMode="alwaysScroll" -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -60,8 +60,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         mMessageEdit.setText("");
 
 
-
-
     }
 
     @Override
@@ -112,7 +110,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 //        <!--android:layout_width="wrap_content"-->
                 //        <!--android:layout_height="wrap_content"-->
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 if (msgInfo.getNickName().equals("오준석")) {
                     params.gravity = Gravity.RIGHT;
