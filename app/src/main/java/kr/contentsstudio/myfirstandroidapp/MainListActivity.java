@@ -15,9 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 import kr.contentsstudio.myfirstandroidapp.broadcast.BroadcastActivity;
-import kr.contentsstudio.myfirstandroidapp.chat.ChatActivity;
+import kr.contentsstudio.myfirstandroidapp.chat.ChatStartActivity;
 import kr.contentsstudio.myfirstandroidapp.com.exercise.Execrise157_S;
-//import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise152;
 import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise157;
 import kr.contentsstudio.myfirstandroidapp.com.fab_dialog.FabAndDialogActivity;
 import kr.contentsstudio.myfirstandroidapp.com.listview.ListViewActivity;
@@ -37,6 +36,8 @@ import kr.contentsstudio.myfirstandroidapp.thread.AsyncTaskActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.ThreadActivity;
 import kr.contentsstudio.myfirstandroidapp.vatcalculator.StartActivity;
 import kr.contentsstudio.myfirstandroidapp.viewpager.ScreenSlideActivity;
+
+//import kr.contentsstudio.myfirstandroidapp.com.exercise.Exercise152;
 
 /**
  * 예제의 첫 화면
@@ -97,7 +98,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "메모장", NoteMainActivity.class);
         addItem(myData, "사진보기 - 프로바이더", PictureActivity.class);
         addItem(myData, "사진 다운로드 표시 - 네트워크 경유", PictureNetworkActivity.class);
-        addItem(myData, "채팅", ChatActivity.class);
+        addItem(myData, "채팅", ChatStartActivity.class);
 
 
         // ----- 메뉴 추가 여기까지

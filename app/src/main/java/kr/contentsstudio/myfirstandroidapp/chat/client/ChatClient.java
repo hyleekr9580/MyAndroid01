@@ -21,22 +21,34 @@ public class ChatClient {
     private Socket mSocket;
     private String mName;
 
+
     //서버쪽으로 쏘는 아이~~~
     private DataOutputStream mOutputStream;
 
+
     public void connect() {
         try {
+            // 소켓을 생성하고, 생성자에 넘겨준 IP 주소와 포트 번호를 이용해 바로 서버에 연결을 시도한다.
             mSocket = new Socket(SERVER_HOST, SERVER_PORT);
+            //            clientWrite.start();
             ClientWrite clientWrite = new ClientWrite(NICKNAME);
-//            clientWrite.start();
             ClientRead clientRead = new ClientRead();
+            // 서버에 연결을 시도한다.
             clientRead.start();
+
+
         } catch (UnknownHostException e) {
+            // 서버의 IP 주소와 관련된 문제가 있을 때 발생한다.
+            // 주로 IP 주소나 포트 번호를 잘못 입력하거나 서버가 실행되어 있지 않아서
+            // 연결할 수 없는 상태일 때 발생한다.
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            // 소켓을 생성하는 중에 에러가 생겼을 때 발생한다.
+
         }
     }
+
 
     //외부에서 메세지를 던지면 쏘기만 하면된다.
     public void sendMessage(String msg) {
@@ -136,5 +148,7 @@ public class ChatClient {
 
             }
         }
+
+
     }
 }
