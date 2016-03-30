@@ -26,14 +26,17 @@ public class ChatClient {
     private DataOutputStream mOutputStream;
 
 
-    public void connect() {
+    public boolean connect() {
         try {
             // 소켓을 생성하고, 생성자에 넘겨준 IP 주소와 포트 번호를 이용해 바로 서버에 연결을 시도한다.
             mSocket = new Socket(SERVER_HOST, SERVER_PORT);
             //            clientWrite.start();
+            //쓰는거는 시도중이다.
             ClientWrite clientWrite = new ClientWrite(NICKNAME);
             ClientRead clientRead = new ClientRead();
             // 서버에 연결을 시도한다.
+
+
             clientRead.start();
 
 
@@ -47,6 +50,12 @@ public class ChatClient {
             // 소켓을 생성하는 중에 에러가 생겼을 때 발생한다.
 
         }
+
+        //소켓이 null인지 체크를 한다.
+        if (mSocket != null) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -66,11 +75,14 @@ public class ChatClient {
         }
     }
 
+    // 접속여부 확인하여 열렸을 경우만 닫아 버립니다.
     public void close() {
-        try {
-            mSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (mSocket != null){
+            try {
+                mSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

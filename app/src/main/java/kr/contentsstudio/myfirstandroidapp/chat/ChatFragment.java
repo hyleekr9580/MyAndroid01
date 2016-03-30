@@ -1,11 +1,15 @@
 package kr.contentsstudio.myfirstandroidapp.chat;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +39,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private ListView mListView;
     private List<MsgInfo> mChatData;
     private MyAdapter myAdapter;
+    private boolean mIsconnect;
 
     @Nullable
     @Override
@@ -64,7 +69,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             @Override
             public void run() {
                 mChatClient = new ChatClient();
-                mChatClient.connect();
+                mIsconnect = mChatClient.connect();
             }
         }).start();
     }
@@ -72,10 +77,37 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         //버튼을 클랙했을때 어떻게 해야하냐~~
-        mChatClient.sendMessage(mMessageEdit.getText().toString());
-        mMessageEdit.setText("");
+        if (mIsconnect == true) {
+            mChatClient.sendMessage(mMessageEdit.getText().toString());
+            mMessageEdit.setText("");
+        }
+        // 통신이 끝어지거나 서버가 접속이 되지 않을때...분기처리..
+        if (mIsconnect == false || isNetworkConnected(getContext()) == false) {
+            new AlertDialog.Builder(getContext())
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("네트워크 연결 오류")
+                    .setMessage("사용하시는 단말기의 네트워크 상태가 좋지 않습니다.\nWIFI망 혹은 모바일 네트워크 연결상태를 확인해 주세요")
+                    .setPositiveButton("확인", null).show();
 
 
+        }
+
+
+    }
+
+    public boolean isNetworkConnected(Context context) {
+        boolean isConnected = false;
+
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        if (mobile.isConnected() || wifi.isConnected()) {
+            isConnected = true;
+        } else {
+            isConnected = false;
+        }
+        return isConnected;
     }
 
     @Override
