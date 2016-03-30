@@ -1,6 +1,5 @@
 package kr.contentsstudio.myfirstandroidapp.chat;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,20 +78,24 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         //버튼을 클랙했을때 어떻게 해야하냐~~
         if (mIsconnect == true) {
+           if(mMessageEdit.getText().toString().trim().equals("")){
+                Toast.makeText(getActivity(), "메세지를 입력하세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             mChatClient.sendMessage(mMessageEdit.getText().toString());
             mMessageEdit.setText("");
         }
+
+
         // 통신이 끝어지거나 서버가 접속이 되지 않을때...분기처리..
         if (mIsconnect == false || isNetworkConnected(getContext()) == false) {
             new AlertDialog.Builder(getContext())
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("네트워크 연결 오류")
-                    .setMessage("사용하시는 단말기의 네트워크 상태가 좋지 않습니다.\nWIFI망 혹은 모바일 네트워크 연결상태를 확인해 주세요")
+                    .setMessage("사용하시는 단말기의 네트워크 상태가 좋지 않습니다." +
+                            "\nWIFI망 혹은 모바일 네트워크 연결상태를 확인해 주세요\n 채팅방을 재접속 해주세요.")
                     .setPositiveButton("확인", null).show();
-
-
         }
-
 
     }
 
@@ -199,7 +203,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private static class MyAdapter extends BaseAdapter {
 
         //타임을 만들기 위한 포맷
-        private SimpleDateFormat mmSimpleDateFormat = new SimpleDateFormat("a hh:dd");
+        private SimpleDateFormat mmSimpleDateFormat = new SimpleDateFormat("a hh:mm");
 
         private final LayoutInflater mmLayoutInflater;
         private final List<MsgInfo> mmData;
@@ -254,17 +258,17 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 holder.message_me.setText(msgInfo.getMessage());
                 holder.time_me.setText(mmSimpleDateFormat.format(new Date()));
 
-                holder.layout_me.setVerticalGravity(View.VISIBLE);
-                holder.layout_you.setVerticalGravity(View.GONE);
+                holder.layout_me.setVisibility(View.VISIBLE);
+                holder.layout_you.setVisibility(View.GONE);
             } else {
 
                 holder.message_you.setText(msgInfo.getMessage());
                 holder.time_you.setText(mmSimpleDateFormat.format(new Date()));
                 holder.nickname.setText(msgInfo.getNickName());
-                holder.image.setImageResource(R.mipmap.ic_launcher);
+                holder.image.setImageResource(R.drawable.u);
 
-                holder.layout_me.setVerticalGravity(View.GONE);
-                holder.layout_you.setVerticalGravity(View.VISIBLE);
+                holder.layout_me.setVisibility(View.GONE);
+                holder.layout_you.setVisibility(View.VISIBLE);
 
                 if (position > 0 && msgInfo.getNickName().equals(((MsgInfo) getItem(position - 1)).getNickName())) {
                     holder.image.setVisibility(View.INVISIBLE);
@@ -280,6 +284,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         }
 
         private static class ViewHolder {
+            LinearLayout layout_me;
+            LinearLayout layout_you;
 
             TextView time_me;
             TextView time_you;
@@ -287,8 +293,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             TextView message_you;
             TextView nickname;
             ImageView image;
-            LinearLayout layout_me;
-            LinearLayout layout_you;
         }
     }
 }

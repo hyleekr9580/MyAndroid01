@@ -35,8 +35,6 @@ public class ChatClient {
             ClientWrite clientWrite = new ClientWrite(NICKNAME);
             ClientRead clientRead = new ClientRead();
             // 서버에 연결을 시도한다.
-
-
             clientRead.start();
 
 
