@@ -32,6 +32,7 @@ import kr.contentsstudio.myfirstandroidapp.json_parsing.JsonParsingActivity;
 import kr.contentsstudio.myfirstandroidapp.load_picture.PictureActivity;
 import kr.contentsstudio.myfirstandroidapp.load_picture.PictureNetworkActivity;
 import kr.contentsstudio.myfirstandroidapp.notepad.activitys.NoteMainActivity;
+import kr.contentsstudio.myfirstandroidapp.service.ServiceMainActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.AsyncTaskActivity;
 import kr.contentsstudio.myfirstandroidapp.thread.ThreadActivity;
 import kr.contentsstudio.myfirstandroidapp.vatcalculator.StartActivity;
@@ -99,6 +100,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "사진보기 - 프로바이더", PictureActivity.class);
         addItem(myData, "사진 다운로드 표시 - 네트워크 경유", PictureNetworkActivity.class);
         addItem(myData, "채팅", ChatActivity.class);
+        addItem(myData, "서비스", ServiceMainActivity.class);
 
 
         // ----- 메뉴 추가 여기까지

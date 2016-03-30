@@ -131,7 +131,16 @@
         <activity
             android:name=".chat.ChatActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".chat.ChatStartActivity"></activity>
+        <activity android:name=".chat.ChatStartActivity" />
+        <activity android:name=".service.ServiceMainActivity" />
+
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.MyIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
