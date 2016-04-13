@@ -39,9 +39,15 @@ public class ScreenSlideActivity extends AppCompatActivity implements TabLayout.
 
         //tab설정
         mTabLayout.addTab(mTabLayout.newTab().setText("Tab 1"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 2"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 3"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 222222"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 33333333333"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Tab 4"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Tab 5"));
         //setOnTabSelectedListener(OnTabSelectedListener) 탭연결
         mTabLayout.setOnTabSelectedListener(this);

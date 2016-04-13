@@ -28,6 +28,7 @@ import kr.contentsstudio.myfirstandroidapp.examsqlite.SqliteMainActivity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam203Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExam212Activity;
 import kr.contentsstudio.myfirstandroidapp.fragment.FragmentExamActivity;
+import kr.contentsstudio.myfirstandroidapp.json_parsing.GsonActivity;
 import kr.contentsstudio.myfirstandroidapp.json_parsing.JsonParsingActivity;
 import kr.contentsstudio.myfirstandroidapp.load_picture.PictureActivity;
 import kr.contentsstudio.myfirstandroidapp.load_picture.PictureNetworkActivity;
@@ -101,6 +102,7 @@ public class MainListActivity extends ListActivity {
         addItem(myData, "사진 다운로드 표시 - 네트워크 경유", PictureNetworkActivity.class);
         addItem(myData, "채팅", ChatActivity.class);
         addItem(myData, "서비스", ServiceMainActivity.class);
+        addItem(myData, "Gson 라이브러리", GsonActivity.class);
 
 
         // ----- 메뉴 추가 여기까지
